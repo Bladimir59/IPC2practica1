@@ -1,41 +1,38 @@
 package clases;
 
+import java.text.SimpleDateFormat;
+
 /**
  *
  * @author Bladimir
  */
 public class pedidos {
-    
+    SimpleDateFormat date=new SimpleDateFormat();
     private String codigoPedido;
-    private double total;
     private String tienda1;
     private String tienda2;
     private String cliente;
     private String articulo;
     private int cantidad;
+    private double total;
     private double anticipo;
-    
+    private String fecha;
 //usar para registrar un nuevo pedido
-    public pedidos(String codigoPedido, double total, String tienda1, String cliente, String articulo, int cantidad, double anticipo) {
-        this.codigoPedido = codigoPedido;
-        this.total = total;
-        this.tienda1 = tienda1;
-        this.cliente = cliente;
-        this.articulo = articulo;
-        this.cantidad = cantidad;
-        this.anticipo = anticipo;
-    }
+
 //pedido para nuevo pedido
-    public pedidos(String codigoPedido, double total, String tienda1, String tienda2, String cliente, String articulo, int cantidad, double anticipo) {
+
+    public pedidos(String codigoPedido, String tienda1, String tienda2, String cliente, String articulo, int cantidad, double total, double anticipo, String fecha) {
         this.codigoPedido = codigoPedido;
-        this.total = total;
         this.tienda1 = tienda1;
         this.tienda2 = tienda2;
         this.cliente = cliente;
         this.articulo = articulo;
         this.cantidad = cantidad;
+        this.total = total;
         this.anticipo = anticipo;
+        this.fecha = fecha;
     }
+
 
     public String getCodigoPedido() {
         return codigoPedido;
@@ -99,6 +96,14 @@ public class pedidos {
 
     public void setAnticipo(double anticipo) {
         this.anticipo = anticipo;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
     }
     
     

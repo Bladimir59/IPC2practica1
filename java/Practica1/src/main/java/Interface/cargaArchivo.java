@@ -5,7 +5,16 @@
  */
 package Interface;
 
-import javax.swing.JFileChooser;
+import clases.tienda;
+import clases.usuario;
+import com.mysql.cj.util.StringUtils;
+import dao.daoTienda;
+import dao.daoUsuario;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import logica.logicaLectura;
 
 /**
  *
@@ -118,8 +127,40 @@ public class cargaArchivo extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // metdo para buscar archivo
-        JFileChooser llamar=new JFileChooser();
-        llamar.showOpenDialog(this);
+        logica.logicaLectura datos=new logicaLectura();
+        File f;
+	javax.swing.JFileChooser j= new javax.swing.JFileChooser();
+	j.showOpenDialog(j);
+	try{
+            String path= j.getSelectedFile().getAbsolutePath();
+            String lectura="";
+            f = new File(path);
+	try{
+            FileReader fr = new FileReader(f);
+            BufferedReader br = new BufferedReader(fr);
+            String aux=null;
+            String empleado=null;
+            while((aux = br.readLine())!=null)
+                if(aux.contains("TIENDA")){
+                    datos.tienda(aux);
+                }else if(aux.contains("EMPLEADO")){
+                    datos.usuario(aux);
+                }else if(aux.contains("CLIENTE")){
+                    datos.cliente(aux);
+                }else if(aux.contains("TIEMPO")){
+                    datos.tiempo(aux);
+                }else if(aux.contains("PEDIDO")){
+                    datos.pedido(empleado);
+                }else if(aux.contains("PRODUCTO")){
+                    System.out.println(""+aux);
+                }
+            lectura = lectura+aux+"\n";
+	}catch(IOException e){}
+            System.out.println(""+lectura);
+	}catch(NullPointerException e){
+            javax.swing.JOptionPane.showMessageDialog(j, "Has seleccionado cerrar programa, saliendo...");
+            System.exit(0);
+	}
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
