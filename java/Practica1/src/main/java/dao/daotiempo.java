@@ -11,7 +11,7 @@ import java.sql.SQLException;
  */
 public class daotiempo {
         public void insertarTiempo(tiempo tiempo){
-        String query="INSERT INTO TIEMPO(tiempo,DETALLETIEMPO_idDETALLETIEMPO,TIENDA_idTienda ) "
+        String query="INSERT INTO TIEMPO(tiempo,origen_TIENDA_idTienda,destino_TIENDA_idTienda  ) "
                     +"VALUES(?,?,?)";
         Connection conexion=null;
         PreparedStatement llevar=null;

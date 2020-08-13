@@ -1,5 +1,6 @@
 package clases;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 /**
@@ -16,12 +17,12 @@ public class pedidos {
     private int cantidad;
     private double total;
     private double anticipo;
-    private String fecha;
+    private Date fecha;
 //usar para registrar un nuevo pedido
 
-//pedido para nuevo pedido
+//pedido para carga de archivo
 
-    public pedidos(String codigoPedido, String tienda1, String tienda2, String cliente, String articulo, int cantidad, double total, double anticipo, String fecha) {
+    public pedidos(String codigoPedido, String tienda1, String tienda2, String cliente, String articulo, int cantidad, double total, double anticipo, Date fecha) {
         this.codigoPedido = codigoPedido;
         this.tienda1 = tienda1;
         this.tienda2 = tienda2;
@@ -32,7 +33,7 @@ public class pedidos {
         this.anticipo = anticipo;
         this.fecha = fecha;
     }
-
+    
 
     public String getCodigoPedido() {
         return codigoPedido;
@@ -40,14 +41,6 @@ public class pedidos {
 
     public void setCodigoPedido(String codigoPedido) {
         this.codigoPedido = codigoPedido;
-    }
-
-    public double getTotal() {
-        return total;
-    }
-
-    public void setTotal(double total) {
-        this.total = total;
     }
 
     public String getTienda1() {
@@ -90,6 +83,14 @@ public class pedidos {
         this.cantidad = cantidad;
     }
 
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
     public double getAnticipo() {
         return anticipo;
     }
@@ -98,14 +99,13 @@ public class pedidos {
         this.anticipo = anticipo;
     }
 
-    public String getFecha() {
+    public Date getFecha() {
         return fecha;
     }
 
-    public void setFecha(String fecha) {
+    public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
     
     
 }

@@ -139,7 +139,6 @@ public class cargaArchivo extends javax.swing.JFrame {
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
             String aux=null;
-            String empleado=null;
             while((aux = br.readLine())!=null)
                 if(aux.contains("TIENDA")){
                     datos.tienda(aux);
@@ -149,10 +148,10 @@ public class cargaArchivo extends javax.swing.JFrame {
                     datos.cliente(aux);
                 }else if(aux.contains("TIEMPO")){
                     datos.tiempo(aux);
-                }else if(aux.contains("PEDIDO")){
-                    datos.pedido(empleado);
                 }else if(aux.contains("PRODUCTO")){
-                    System.out.println(""+aux);
+                    datos.producto(aux);
+                }else if(aux.contains("PEDIDO")){
+                    datos.pedido(aux);
                 }
             lectura = lectura+aux+"\n";
 	}catch(IOException e){}

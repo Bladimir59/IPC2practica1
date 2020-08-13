@@ -29,6 +29,7 @@ public class cliente {
         this.NIT = NIT;
         this.credito = credito;
     }
+    
 
     public String getNombre() {
         return nombre;

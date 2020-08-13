@@ -11,26 +11,39 @@ import java.sql.SQLException;
  */
 public class daoTienda {
     public void insertarTienda(tienda tienda){
-        String query="INSERT INTO TIENDA(nombreTienda,direccionTienda,codigoTienda,telefonoTienda1,telefonoTienda2,correoTienda,horario) "
+        String query="INSERT INTO TIENDA(idTienda,nombreTienda,direccionTienda,telefonoTienda1,telefonoTienda2,correoTienda,horario) "
                     +"VALUES(?,?,?,?,?,?,?)";
+        String queryOrigen="INSERT INTO origen(TIENDA_idTienda) VALUES(?)";
+        String querydestino="INSERT INTO destino(TIENDA_idTienda) VALUES(?)";
         Connection conexion=null;
         PreparedStatement llevar=null;
+        PreparedStatement origen=null;
+        PreparedStatement destino=null;
         try {
             conexion=Conexion.conexionMysql.conectar();
             llevar=conexion.prepareStatement(query);
-            llevar.setString(1, tienda.getNombre());
-            llevar.setString(2, tienda.getDireccion());
-            llevar.setString(3, tienda.getCodigo());
+            origen=conexion.prepareStatement(queryOrigen);
+            destino=conexion.prepareStatement(querydestino);
+            llevar.setString(1, tienda.getCodigo());
+            llevar.setString(2, tienda.getNombre());
+            llevar.setString(3, tienda.getDireccion());
             llevar.setString(4, tienda.getTelefono1());
             llevar.setString(5, tienda.getTelefono2());
             llevar.setString(6, tienda.getCorreo());
             llevar.setString(7, tienda.getHorario());
-            llevar.executeLargeUpdate();
+            //llena las tablas union de origen destino
+            origen.setString(1, tienda.getCodigo());
+            destino.setString(1, tienda.getCodigo());
+            llevar.executeUpdate();
+            origen.executeUpdate();
+            destino.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }finally{
             Conexion.conexionMysql.close(conexion);
             Conexion.conexionMysql.close(llevar);
+            Conexion.conexionMysql.close(origen);
+            Conexion.conexionMysql.close(destino);
         }
     }   
 }

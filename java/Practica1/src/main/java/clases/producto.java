@@ -12,9 +12,10 @@ public class producto {
     private Double precio;
     private String descripcion;
     private int garantia;
-    private int idTienda;
+    private String idTienda;
     //CONTRUCTOR PARA EL ENVIO DE ARCHIVOS COMPLETO
-    public producto(String nombre, String fabrica, String codigo, int cantidad, Double precio, String descripcion, int garantia) {
+
+    public producto(String nombre, String fabrica, String codigo, int cantidad, Double precio, String descripcion, int garantia, String idTienda) {
         this.nombre = nombre;
         this.fabrica = fabrica;
         this.codigo = codigo;
@@ -22,20 +23,28 @@ public class producto {
         this.precio = precio;
         this.descripcion = descripcion;
         this.garantia = garantia;
+        this.idTienda = idTienda;
     }
+    
     //CONTRUCTOR PARA LA CARGA DE ARCHIVO
-    public producto(String nombre, String fabrica, String codigo, int cantidad, Double precio) {
+
+    public producto(String nombre, String fabrica, String codigo, int cantidad, Double precio, String idTienda) {
         this.nombre = nombre;
         this.fabrica = fabrica;
         this.codigo = codigo;
         this.cantidad = cantidad;
         this.precio = precio;
-    }
-
-    public producto(int idTienda) {
         this.idTienda = idTienda;
     }
     
+
+    public String getIdTienda() {
+        return idTienda;
+    }
+
+    public void setIdTienda(String idTienda) {
+        this.idTienda = idTienda;
+    }
     
     public String getNombre() {
         return nombre;
@@ -91,14 +100,6 @@ public class producto {
 
     public void setGarantia(int garantia) {
         this.garantia = garantia;
-    }
-
-    public int getIdTienda() {
-        return idTienda;
-    }
-
-    public void setIdTienda(int idTienda) {
-        this.idTienda = idTienda;
     }
     
 }
