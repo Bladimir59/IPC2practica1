@@ -29,7 +29,7 @@ public class daoProducto {
             llevar.setString(5, producto.getDescripcion());
             llevar.setInt(6, producto.getGarantia());
             llevar.executeUpdate();
-//llena la tabla union
+            //llena la tabla union
             llevaunion=conexion.prepareStatement(querytienda_producto);
             llevaunion.setString(1, producto.getIdTienda());
             llevaunion.setString(2, producto.getCodigo());

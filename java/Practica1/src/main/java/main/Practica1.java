@@ -1,6 +1,7 @@
 package main;
 
-import Interface.cargaArchivo;
+import Interface.login;
+
 
 /**
  *
@@ -8,7 +9,7 @@ import Interface.cargaArchivo;
  */
 public class Practica1 {
     public static void main(String[] args) {
-        cargaArchivo ir=new cargaArchivo();
+        login ir=new login();
         ir.show();
     }
         
