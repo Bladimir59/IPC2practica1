@@ -29,6 +29,19 @@ public class cliente {
         this.NIT = NIT;
         this.credito = credito;
     }
+    //PARA LLENAR LA TABLA DE VENTAS DEL CLIENTE
+
+    public cliente(String nombre, String NIT, double credito, String correo) {
+        this.nombre = nombre;
+        this.NIT = NIT;
+        this.credito = credito;
+        this.correo = correo;
+    }
+
+    @Override
+    public String toString() {
+        return "cliente{" + "nombre=" + nombre + ", telefono=" + telefono + ", NIT=" + NIT + ", DPI=" + DPI + ", credito=" + credito + ", correo=" + correo + ", direccion=" + direccion + '}';
+    }
     
 
     public String getNombre() {

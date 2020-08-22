@@ -3,7 +3,10 @@ package dao;
 import clases.tienda;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -45,5 +48,27 @@ public class daoTienda {
             Conexion.conexionMysql.close(origen);
             Conexion.conexionMysql.close(destino);
         }
-    }   
+    } 
+    public List<clases.tienda> listaTienda(){
+        List<tienda> listado = new ArrayList<>();
+        String query="SELECT idTienda,nombreTienda FROM TIENDA";
+        Connection conexion=null;
+        PreparedStatement obtener=null;
+        ResultSet rs=null;
+        try {
+            conexion=Conexion.conexionMysql.conectar();
+            obtener=conexion.prepareStatement(query);
+            rs=obtener.executeQuery(query);
+            while(rs.next()){
+                String id=rs.getString("idTienda");
+                String nombre=rs.getString("nombreTienda");
+                tienda lista=new tienda(nombre,id);
+                lista.setCodigo(id);
+                lista.setNombre(nombre);
+                listado.add(lista);
+            }
+        } catch (Exception e) {
+        }
+        return listado; 
+    }
 }

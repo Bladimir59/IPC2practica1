@@ -29,6 +29,20 @@ public class usuario {
         this.DPI = DPI;
         this.codigo = codigo;
     }
+    //para el login recuperar los datos de la base de datos 
+
+    public usuario(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public usuario() {
+    }
+    
+
+    @Override
+    public String toString() {
+        return "usuario{" + "nombre=" + nombre + ", telefono=" + telefono + ", DPI=" + DPI + ", codigo=" + codigo + ", NIT=" + NIT + ", correo=" + correo + ", direccion=" + direccion + '}';
+    }
     
 
     public String getNombre() {

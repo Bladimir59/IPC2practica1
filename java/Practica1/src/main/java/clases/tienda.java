@@ -30,6 +30,12 @@ public class tienda {
         this.telefono1 = telefono1;
     }
 
+    public tienda(String nombre, String codigo) {
+        this.nombre = nombre;
+        this.codigo = codigo;
+    }
+    
+
     public String getNombre() {
         return nombre;
     }

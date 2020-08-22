@@ -37,6 +37,23 @@ public class producto {
         this.idTienda = idTienda;
     }
     
+    //CONSTRUCTOR PARA LA RECUPERACION DE DATOS DE LA BASE
+    
+    public producto(String nombre, String fabrica, String codigo, int cantidad, Double precio, String descripcion, int garantia) {
+        this.nombre = nombre;
+        this.fabrica = fabrica;
+        this.codigo = codigo;
+        this.cantidad = cantidad;
+        this.precio = precio;
+        this.descripcion = descripcion;
+        this.garantia = garantia;
+    }
+
+    @Override
+    public String toString() {
+        return "producto{" + "nombre=" + nombre + ", fabrica=" + fabrica + ", codigo=" + codigo + ", cantidad=" + cantidad + ", precio=" + precio + ", descripcion=" + descripcion + ", garantia=" + garantia + ", idTienda=" + idTienda + '}';
+    }
+    
 
     public String getIdTienda() {
         return idTienda;

@@ -3,7 +3,10 @@ package dao;
 import clases.cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -32,6 +35,34 @@ public class daoCliente {
             Conexion.conexionMysql.close(conexion);
             Conexion.conexionMysql.close(llevar);
         }
+    }
+        public List<clases.cliente> listaCliente(){
+        List<cliente> listado = new ArrayList<>();
+        String query="SELECT nit,nombreCliente,correoCliente,creditoCliente from CLIENTE";
+        Connection conexion=null;
+        PreparedStatement obtener=null;
+        ResultSet rs=null;
+        try {
+            conexion=Conexion.conexionMysql.conectar();
+            obtener=conexion.prepareStatement(query);
+            rs=obtener.executeQuery();
+            while(rs.next()){
+                cliente lista=new cliente(rs.getNString("nombreCliente"),rs.getNString("nit") , rs.getDouble("creditoCliente"), rs.getNString("correoCliente"));
+                lista.setNIT(rs.getString("nit"));
+                lista.setNombre(rs.getNString("nombreCliente"));
+                lista.setCredito(rs.getDouble("creditoCliente"));
+                lista.setCorreo(rs.getNString("correoCliente"));
+                listado.add(lista);
+            }
+            return listado;
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }finally{
+            Conexion.conexionMysql.close(rs);
+            Conexion.conexionMysql.close(obtener);
+            Conexion.conexionMysql.close(conexion);
+        }
+        return listado; 
     }
     
     

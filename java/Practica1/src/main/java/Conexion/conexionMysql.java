@@ -3,6 +3,7 @@ package Conexion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -27,5 +28,12 @@ public class conexionMysql {
         } catch (SQLException eX) {
             
         }
+    }
+    public static void close(ResultSet cerrar) {
+        try {
+            cerrar.close();
+        } catch (SQLException ex) {
+        }
+        
     }
 }

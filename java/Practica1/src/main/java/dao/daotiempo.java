@@ -10,7 +10,8 @@ import java.sql.SQLException;
  * @author Bladimir
  */
 public class daotiempo {
-        public void insertarTiempo(tiempo tiempo){
+    //para la lectura de archivo
+    public void insertarTiempo(tiempo tiempo){
         String query="INSERT INTO TIEMPO(tiempo,origen_TIENDA_idTienda,destino_TIENDA_idTienda  ) "
                     +"VALUES(?,?,?)";
         Connection conexion=null;

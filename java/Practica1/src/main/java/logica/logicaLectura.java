@@ -36,7 +36,7 @@ public class logicaLectura {
         llenar.insertarUsuario(nuevo);
         System.out.println(""+datoUsuario);
         return datoUsuario;
-    }
+    } 
     public String cliente(String datoCliente){
         String[] partes=datoCliente.split(",");
         double credito=Double.parseDouble(partes[4]);
