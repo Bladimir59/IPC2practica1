@@ -35,6 +35,12 @@ public class usuario {
         this.codigo = codigo;
     }
 
+    public usuario(String codigo, String direccion) {
+        this.codigo = codigo;
+        this.direccion = direccion;
+    }
+
+    
     public usuario() {
     }
     

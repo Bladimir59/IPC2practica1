@@ -6,4 +6,5 @@ package logica;
  */
 public class logicaPedido {
     
+    
 }

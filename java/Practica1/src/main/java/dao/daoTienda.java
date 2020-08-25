@@ -67,7 +67,12 @@ public class daoTienda {
                 lista.setNombre(nombre);
                 listado.add(lista);
             }
-        } catch (Exception e) {
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }finally{
+            Conexion.conexionMysql.close(rs);
+            Conexion.conexionMysql.close(obtener);
+            Conexion.conexionMysql.close(conexion);
         }
         return listado; 
     }

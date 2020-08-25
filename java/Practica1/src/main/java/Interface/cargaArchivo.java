@@ -139,21 +139,34 @@ public class cargaArchivo extends javax.swing.JFrame {
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr);
             String aux=null;
-            while((aux = br.readLine())!=null)
+            String error=null;
+            String info=null;
+            while((aux = br.readLine())!=null){
                 if(aux.contains("TIENDA")){
                     datos.tienda(aux);
+                    info=aux;
                 }else if(aux.contains("EMPLEADO")){
                     datos.usuario(aux);
+                    info=aux;
                 }else if(aux.contains("CLIENTE")){
                     datos.cliente(aux);
+                    info=aux;
                 }else if(aux.contains("TIEMPO")){
                     datos.tiempo(aux);
+                    info=aux;
                 }else if(aux.contains("PRODUCTO")){
                     datos.producto(aux);
+                    info=aux;
                 }else if(aux.contains("PEDIDO")){
                     datos.pedido(aux);
+                    info=aux;
+                }else{
+                    error=aux+error+"\n";
                 }
-            lectura = lectura+aux+"\n";
+            lectura = lectura+info+"\n";
+            }
+            jTextArea2.append(error);
+            jTextArea1.append(lectura);
 	}catch(IOException e){}
             System.out.println(""+lectura);
 	}catch(NullPointerException e){

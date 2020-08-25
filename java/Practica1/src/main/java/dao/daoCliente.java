@@ -64,6 +64,22 @@ public class daoCliente {
         }
         return listado; 
     }
-    
-    
+    //EDITAR EL CREDITO
+    public void cambiarUnDato(cliente cliente){
+        String query="UPDATE CLIENTE SET creditoCliente=? WHERE NIT=?";
+        Connection conexion=null;
+        PreparedStatement modificar=null;
+        try {
+            conexion=Conexion.conexionMysql.conectar();
+            modificar=conexion.prepareStatement(query);
+            modificar.setDouble(1, cliente.getCredito());
+            modificar.setString(2, cliente.getNIT());
+            modificar.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }finally{
+            Conexion.conexionMysql.close(modificar);
+            Conexion.conexionMysql.close(conexion);
+        }
+    }
 }

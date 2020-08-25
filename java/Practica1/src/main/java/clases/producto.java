@@ -48,6 +48,15 @@ public class producto {
         this.descripcion = descripcion;
         this.garantia = garantia;
     }
+    //para la busqueda de nombre o codigo
+    
+    //nombre
+
+    public producto(String nombre, String codigo) {
+        this.nombre = nombre;
+        this.codigo = codigo;
+    }
+   
 
     @Override
     public String toString() {

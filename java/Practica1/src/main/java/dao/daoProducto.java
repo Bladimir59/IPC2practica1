@@ -50,8 +50,7 @@ public class daoProducto {
     public List<clases.producto> listaProductosVenta(String codigoTienda){
         List<producto> listado = new ArrayList<>();
         String query="SELECT idPRODUCTO,nombreProducto,fabrica,PRECIO,Descripcion,GARANTILLA,cantidadProducto FROM PRODUCTO"
-                + " INNER JOIN TIENDASdePRODUCTOS ON PRODUCTO.idPRODUCTO = TIENDASdePRODUCTOS."
-                + "PRODUCTO_idPRODUCTO WHERE TIENDA_idTienda =?";
+                + " INNER JOIN TIENDASdePRODUCTOS ON PRODUCTO.idPRODUCTO = TIENDASdePRODUCTOS.PRODUCTO_idPRODUCTO WHERE TIENDA_idTienda =?";
 //agregar de la tabla tiendas de producto su id 
         Connection conexion=null;
         PreparedStatement obtener=null;
@@ -82,6 +81,60 @@ public class daoProducto {
         }
         return listado; 
     }
+    //ver producto por nombre
+    public List<producto> listaCodigo(){
+        List<producto> listadoCodigopreoducto = new ArrayList<>();
+        String query="SELECT idPRODUCTO FROM PRODUCTO";
+        Connection conexion=null;
+        PreparedStatement obtener=null;
+        ResultSet rs=null;
+        try {
+            conexion=Conexion.conexionMysql.conectar();
+            obtener=conexion.prepareStatement(query);
+            rs=obtener.executeQuery(query);
+            while(rs.next()){
+                String id=rs.getString("idPRODUCTO");
+                producto lista=new producto(id,null);
+                lista.setCodigo(id);
+                listadoCodigopreoducto.add(lista);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }finally{
+            Conexion.conexionMysql.close(rs);
+            Conexion.conexionMysql.close(obtener);
+            Conexion.conexionMysql.close(conexion);
+        }
+        return listadoCodigopreoducto;
+        
+    }
+    public List<producto> listaNombre(){
+        List<producto> listadoCodigopreoducto = new ArrayList<>();
+        String query="SELECT nombreProducto FROM PRODUCTO";
+        Connection conexion=null;
+        PreparedStatement obtener=null;
+        ResultSet rs=null;
+        try {
+            conexion=Conexion.conexionMysql.conectar();
+            obtener=conexion.prepareStatement(query);
+            rs=obtener.executeQuery(query);
+            while(rs.next()){
+                String id=rs.getString("nombreProducto");
+                producto lista=new producto(id,null);
+                lista.setNombre(id);
+                listadoCodigopreoducto.add(lista);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }finally{
+            Conexion.conexionMysql.close(rs);
+            Conexion.conexionMysql.close(obtener);
+            Conexion.conexionMysql.close(conexion);
+        }
+        return listadoCodigopreoducto;
+        
+    }
+  //  SELECT idPRODUCTO,nombreProducto,fabrica,PRECIO,Descripcion,GARANTILLA,cantidadProducto FROM PRODUCTO INNER JOIN TIENDASdePRODUCTOS ON PRODUCTO.idPRODUCTO = TIENDASdePRODUCTOS.PRODUCTO_idPRODUCTO
  //   query para ventas
 //String query = "SELECT id, codigo, nombre, fabricante, precio, descripcion, garantia, stockProductos "
 //               + "FROM productos INNER JOIN tiendasProductos ON productos.codigo = tiendasProductos.productosCodigo "

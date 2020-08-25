@@ -15,8 +15,8 @@ public class venta {
     private int cantidaProducto;
     private double subtotal;
     private double total;
-    private int detalleVenta;
     private Date fecha;
+    private int idVenta;
 
     public venta(String tiendaVenta, String clienteVenta, double total, Date fecha) {
         this.tiendaVenta = tiendaVenta;
@@ -25,11 +25,19 @@ public class venta {
         this.fecha = fecha;
     }
 
-    public venta(String productoVenta, int cantidaProducto, double subtotal, int detalleVenta) {
+    public venta(String productoVenta, int cantidaProducto, double subtotal, int idVenta) {
         this.productoVenta = productoVenta;
         this.cantidaProducto = cantidaProducto;
         this.subtotal = subtotal;
-        this.detalleVenta = detalleVenta;
+        this.idVenta = idVenta;
+    }
+
+    public int getIdVenta() {
+        return idVenta;
+    }
+
+    public void setIdVenta(int idVenta) {
+        this.idVenta = idVenta;
     }
 
     public SimpleDateFormat getDate() {
@@ -86,14 +94,6 @@ public class venta {
 
     public void setTotal(double total) {
         this.total = total;
-    }
-
-    public int getDetalleVenta() {
-        return detalleVenta;
-    }
-
-    public void setDetalleVenta(int detalleVenta) {
-        this.detalleVenta = detalleVenta;
     }
 
     public Date getFecha() {

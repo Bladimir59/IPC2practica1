@@ -76,7 +76,7 @@ public class logicaLectura {
         System.out.println(""+datoPedido);
         return datoPedido;
     }
-    private java.sql.Date getDate(String fechainicial){
+    public static java.sql.Date getDate(String fechainicial){
         java.sql.Date dato=null;
         try {
             SimpleDateFormat formato=new SimpleDateFormat("yyyy-MM-dd");

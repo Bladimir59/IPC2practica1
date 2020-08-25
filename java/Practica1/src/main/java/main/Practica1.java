@@ -5,13 +5,16 @@ import Interface.cargaArchivo;
 import Interface.nuevosDatos;
 import clases.cliente;
 import clases.producto;
+import clases.usuario;
 import clases.venta;
 import dao.daoCliente;
 import dao.daoProducto;
+import dao.daoUsuario;
 import dao.daoVenta;
 import java.awt.image.DataBuffer;
 import java.text.SimpleDateFormat;
 import java.util.List;
+import logica.BuscarDatos;
 
 
 
@@ -21,20 +24,17 @@ import java.util.List;
  */
 public class Practica1 {
     public static void main(String[] args) {
+        BuscarDatos ir=new BuscarDatos();
+        ir.dirige();  
 //        login ir=new login();
 //        ir.show();
-//        dao.daoUsuario ver_lista=new daoUsuario();
-//        List<usuario> listado =ver_lista.listaCodigo();
-//        for (int i = 0; i < listado.size(); i++) {
-//            System.out.println(""+listado.get(i).getCodigo());
-//        }
+        
 //        nuevosDatos ir=new nuevosDatos();
 //        ir.show();
-//    }
-        Empleado ir=new Empleado();
-        ir.show();     
+//        Empleado ir=new Empleado();
+  //      ir.show();     
 //        cargaArchivo ir=new cargaArchivo();
-//        ir.show();
+  //      ir.show();
 //        dao.daoProducto nuevo=new daoProducto();
 //        List<producto> listado=nuevo.listaProductosVenta("ABC-1");
 //        for (int i = 0; i < listado.size(); i++) {
@@ -63,5 +63,11 @@ public class Practica1 {
 //            ex.printStackTrace(System.out);
 //        }
 //        return dato;
+// MODIFICAR USUARIO
+//        usuario nuevo=new usuario("stiven", "59012221", "no se", "11111", "tampoco", "casimiro@gmail.com", "chuisuc");
+//        daoUsuario llenar=new daoUsuario();
+//        llenar.modificarUsuario(nuevo);
+//MODIFICAR SOLO UN DATO
+       
     }
 }

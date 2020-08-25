@@ -38,6 +38,12 @@ public class cliente {
         this.correo = correo;
     }
 
+    public cliente(String NIT, double credito) {
+        this.NIT = NIT;
+        this.credito = credito;
+    }
+    
+
     @Override
     public String toString() {
         return "cliente{" + "nombre=" + nombre + ", telefono=" + telefono + ", NIT=" + NIT + ", DPI=" + DPI + ", credito=" + credito + ", correo=" + correo + ", direccion=" + direccion + '}';

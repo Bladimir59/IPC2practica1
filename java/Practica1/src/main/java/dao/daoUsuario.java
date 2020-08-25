@@ -67,6 +67,7 @@ public class daoUsuario {
         }
         return datosUsuario;
     }
+    //codigo de usuarios
     public List<clases.usuario> listaCodigo(){
         List<usuario> listado = new ArrayList<>();
         String query="SELECT idUsuario FROM USUARIO";
@@ -91,5 +92,46 @@ public class daoUsuario {
             Conexion.conexionMysql.close(conexion);
         }
         return listado; 
+    }
+    public void modificarUsuario(usuario usuario){
+        String query="UPDATE USUARIO SET nombreUsuario = ?,telefonoUsuario = ?,DPIUsuario = ?,NITUsuario = ?,"
+                + "correoUsuario = ?,direccionUsuario = ? WHERE idUsuario = ?";
+        Connection conexion=null;
+        PreparedStatement modificar=null;
+        try {
+            conexion=Conexion.conexionMysql.conectar();
+            modificar=conexion.prepareStatement(query);
+            modificar.setString(1, usuario.getNombre());
+            modificar.setString(2, usuario.getTelefono());
+            modificar.setString(3, usuario.getDPI());
+            modificar.setString(4, usuario.getNIT());
+            modificar.setString(5, usuario.getCorreo());
+            modificar.setString(6, usuario.getDireccion());
+            modificar.setString(7, usuario.getCodigo());
+            modificar.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }finally{
+            Conexion.conexionMysql.close(modificar);
+            Conexion.conexionMysql.close(conexion);
+        }
+    }
+    //prueba de alterar un solo dato en usuario
+    public void cambiarUnDato(usuario usuario){
+        String query="UPDATE USUARIO SET direccionUsuario=? WHERE idUsuario=?";
+        Connection conexion=null;
+        PreparedStatement modificar=null;
+        try {
+            conexion=Conexion.conexionMysql.conectar();
+            modificar=conexion.prepareStatement(query);
+            modificar.setString(1, usuario.getDireccion());
+            modificar.setString(2, usuario.getCodigo());
+            modificar.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }finally{
+            Conexion.conexionMysql.close(modificar);
+            Conexion.conexionMysql.close(conexion);
+        }
     }
 }

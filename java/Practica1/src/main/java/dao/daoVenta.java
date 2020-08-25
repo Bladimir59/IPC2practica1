@@ -42,24 +42,22 @@ public class daoVenta {
         return idVenta;
     }
     public void insertarDetalleVenta(venta venta){
-        String query="INSERT INTO detalleVenta(PRODUCTO_idPRODUCTO,VENTA_idVENTAS ,cantidadProducto,subTotal)"
-                    +"VALUES(?,?,?,?)";
+        String query="INSERT INTO detalleVentas(PRODUCTO_idPRODUCTO,VENTA_idVENTAS ,cantidadProducto,subTotal)"
+                    +"VALUES(?,?,?,?)ON DUPLICATE KEY UPDATE PRODUCTO_idPRODUCTO=PRODUCTO_idPRODUCTO,VENTA_idVENTAS=VENTA_idVENTAS";
         Connection conexion=null;
         PreparedStatement llevar=null;
-        PreparedStatement llevaunion=null;
         try {
             conexion=Conexion.conexionMysql.conectar();
             llevar=conexion.prepareStatement(query);
             //llena la tabla de VENTA
             llevar.setString(1, venta.getProductoVenta());
-            llevar.setInt(2, venta.getDetalleVenta());
+            llevar.setInt(2, venta.getIdVenta());
             llevar.setInt(3, venta.getCantidaProducto());
-            llevar.setDouble(4, venta.getTotal());
+            llevar.setDouble(4, venta.getSubtotal());
             llevar.executeUpdate();
             } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }finally{
-            Conexion.conexionMysql.close(llevaunion);
             Conexion.conexionMysql.close(llevar);
             Conexion.conexionMysql.close(conexion);
         }
