@@ -47,4 +47,37 @@ public class TablaPedido {
         }
         return listado; 
     }
+    public List<reportes.claseTabla> ListaProductoTiendacliente(){
+        List<reportes.claseTabla> listado = new ArrayList<>();
+        String query="select idPRODUCTO,nombreProducto,precio,cantidadProducto,idTienda,nombreTienda,direccionTienda"
+                + " from PRODUCTO p inner join TIENDASdePRODUCTOS T ON T.PRODUCTO_idPRODUCTO = p.idPRODUCTO inner join TIENDA TI ON TI.idTIENDA = T.TIENDA_idTIENDA";
+        Connection conexion=null;
+        PreparedStatement obtener=null;
+        ResultSet rs=null;
+        try {
+            conexion=Conexion.conexionMysql.conectar();
+            obtener=conexion.prepareStatement(query);
+            rs=obtener.executeQuery();
+            while(rs.next()){
+                claseTabla lista=new claseTabla(rs.getString("idTienda"),rs.getString("nombreTienda"),rs.getString("direccionTienda"),
+                        rs.getString("idPRODUCTO"),rs.getString("nombreProducto"),rs.getDouble("precio"),rs.getInt("cantidadProducto"));
+                lista.setIdTienda(rs.getString("idTienda"));
+                lista.setNombreTienda(rs.getString("nombreTienda"));
+                lista.setDirecciontienda(rs.getString("direccionTienda"));
+                lista.setCodigoProducto(rs.getString("idPRODUCTO"));
+                lista.setNombreProducto(rs.getString("nombreProducto"));
+                lista.setPrecioProducto(rs.getDouble("precio"));
+                lista.setCantidadProducto(rs.getInt("cantidadProducto"));
+                
+                listado.add(lista);
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace(System.out);
+        }finally{
+            Conexion.conexionMysql.close(rs);
+            Conexion.conexionMysql.close(obtener);
+            Conexion.conexionMysql.close(conexion);
+        }
+        return listado; 
+    }
 }

@@ -5,7 +5,9 @@
  */
 package Interface;
 
+import clases.cliente;
 import clases.usuario;
+import dao.daoCliente;
 import dao.daoUsuario;
 import java.util.List;
 
@@ -152,17 +154,27 @@ public class login extends javax.swing.JFrame {
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
-
+public String NITCLIENTE="";
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // boton para seleccionar el lugar a donde ir
         dao.daoUsuario ver=new daoUsuario();
         String codigo=jTextField1.getText();
+        NITCLIENTE=codigo;
         List<usuario> listado=ver.listaCodigo();
         for(int i=0; i<listado.size();i++){
             if(codigo.equals(listado.get(i).getCodigo())){
                 Empleado ir=new Empleado();
                 ir.show();
                 this.dispose();
+            }
+        }
+        dao.daoCliente revisar=new daoCliente();
+        List<cliente> nit=revisar.listaCliente();
+        for(int j=0; j<nit.size();j++ ){
+            if(codigo.equals(nit.get(j).getNIT())){
+                Interface.Cliente voy=new Cliente();
+                voy.show();
+                
             }
         }
         
