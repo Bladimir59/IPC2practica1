@@ -76,6 +76,7 @@ public class daoProducto {
         } catch (SQLException ex) {
             ex.printStackTrace(System.out);
         }finally{
+            Conexion.conexionMysql.close(rs);
             Conexion.conexionMysql.close(obtener);
             Conexion.conexionMysql.close(conexion);
         }
@@ -134,9 +135,14 @@ public class daoProducto {
         return listadoCodigopreoducto;
         
     }
+    
+    //para el cambio 
+    
   //  SELECT idPRODUCTO,nombreProducto,fabrica,PRECIO,Descripcion,GARANTILLA,cantidadProducto FROM PRODUCTO INNER JOIN TIENDASdePRODUCTOS ON PRODUCTO.idPRODUCTO = TIENDASdePRODUCTOS.PRODUCTO_idPRODUCTO
  //   query para ventas
 //String query = "SELECT id, codigo, nombre, fabricante, precio, descripcion, garantia, stockProductos "
 //               + "FROM productos INNER JOIN tiendasProductos ON productos.codigo = tiendasProductos.productosCodigo "
 //               + "WHERE tiendasCodigo = ?"  agregar de la tabla tiendas de producto su id  
+    //select * from PRODUCTO p inner join TIENDASdePRODUCTOS T ON T.PRODUCTO_idPRODUCTO = p.idPRODUCTO inner join TIENDA TI ON TI.idTIENDA = T.TIENDA_idTIENDA WHERE p.idPRODUCTO = 'CKL-4392';
+
 }

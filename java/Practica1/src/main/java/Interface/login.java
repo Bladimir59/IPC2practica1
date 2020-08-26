@@ -5,6 +5,10 @@
  */
 package Interface;
 
+import clases.usuario;
+import dao.daoUsuario;
+import java.util.List;
+
 /**
  *
  * @author bladimir
@@ -16,6 +20,8 @@ public class login extends javax.swing.JFrame {
      */
     public login() {
         initComponents();
+        
+        
     }
 
     /**
@@ -149,11 +155,17 @@ public class login extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // boton para seleccionar el lugar a donde ir
+        dao.daoUsuario ver=new daoUsuario();
+        String codigo=jTextField1.getText();
+        List<usuario> listado=ver.listaCodigo();
+        for(int i=0; i<listado.size();i++){
+            if(codigo.equals(listado.get(i).getCodigo())){
+                Empleado ir=new Empleado();
+                ir.show();
+                this.dispose();
+            }
+        }
         
-        
-        
-        Empleado ir=new Empleado();
-        ir.show();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

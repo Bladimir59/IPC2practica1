@@ -11,8 +11,8 @@ import java.sql.SQLException;
  */
 public class daoPedidos {
         public void insertarPedidos(pedidos pedidos){
-        String query="INSERT INTO PEDIDOS(codigoPedido,fecha,anticipo,origen_TIENDA_idTienda,destino_TIENDA_idTienda,total,CLIENTE_NIT) "
-                    +"VALUES(?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE codigoPedido=codigoPedido";
+        String query="INSERT INTO PEDIDOS(codigoPedido,fecha,anticipo,origen_TIENDA_idTienda,destino_TIENDA_idTienda,total,CLIENTE_NIT,fechaEntrega,EnTienda ) "
+                    +"VALUES(?,?,?,?,?,?,?,?,?) ON DUPLICATE KEY UPDATE codigoPedido=codigoPedido";
         String queryunion="INSERT INTO PEDIDOSdePRODUCTO(PEDIDOS_codigoPedido,PRODUCTO_idPRODUCTO,cantidadProducto ) "
                     +"VALUES(?,?,?)";
         Connection conexion=null;
@@ -28,6 +28,8 @@ public class daoPedidos {
             llevar.setString(5, pedidos.getTienda2());
             llevar.setDouble(6, pedidos.getTotal());
             llevar.setString(7, pedidos.getCliente());
+            llevar.setDate(8, pedidos.getFechaEntrega()); 
+            llevar.setBoolean(9, true);
             llevar.executeUpdate();
 //llenar la tabla union
             llevarUnion=conexion.prepareStatement(queryunion);

@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  *
@@ -35,5 +36,16 @@ public class conexionMysql {
         } catch (SQLException ex) {
         }
         
+    }
+    public ResultSet getTabla(String consulta) throws SQLException {
+        Connection cd = conectar();
+        Statement st;
+        ResultSet datos = null;
+        try {
+            st = cd.createStatement();
+            datos = st.executeQuery(consulta);
+        } catch (Exception e) {
+        }
+        return datos;
     }
 }

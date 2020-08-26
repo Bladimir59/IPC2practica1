@@ -1,6 +1,8 @@
 package logica;
 
 import clases.producto;
+import clases.tienda;
+import dao.daoTienda;
 import java.util.List;
 import javax.swing.JComboBox;
 
@@ -22,14 +24,14 @@ public class llenarJcombo {
         } catch (Exception e) {
         }
     }
-    public void llenarNombre(JComboBox nombre) {
+    public void llenarCodigoTienda(JComboBox nombre) {
         String dato;
         nombre.removeAllItems();
-        dao.daoProducto ver_lista=new dao.daoProducto();
-        List<producto> listado =ver_lista.listaNombre();
+        dao.daoTienda ver_lista=new daoTienda();
+        List<tienda> listado =ver_lista.listaTienda();
         try {        
             for (int i = 0; i < listado.size(); i++) {
-                dato=listado.get(i).getNombre();
+                dato=listado.get(i).getCodigo();
                 nombre.addItem(dato);
             }
         } catch (Exception e) {

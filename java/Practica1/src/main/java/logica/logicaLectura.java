@@ -70,6 +70,9 @@ public class logicaLectura {
         int cantidad=Integer.parseInt(partes[7]);
         Double total=Double.parseDouble(partes[8]);
         Double anticipo=Double.parseDouble(partes[9]);
+        daotiempo tiempo=new daotiempo();
+        int numero=tiempo.tiempoPedido(partes[2], partes[3]);
+        
         pedidos nuevo=new pedidos(partes[1], partes[2], partes[3], partes[5], partes[6],cantidad , total, anticipo, getDate(partes[4]));
         dao.daoPedidos llenar=new daoPedidos();
         llenar.insertarPedidos(nuevo);

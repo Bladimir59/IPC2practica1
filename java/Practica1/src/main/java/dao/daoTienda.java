@@ -51,7 +51,7 @@ public class daoTienda {
     } 
     public List<clases.tienda> listaTienda(){
         List<tienda> listado = new ArrayList<>();
-        String query="SELECT idTienda,nombreTienda FROM TIENDA";
+        String query="SELECT idTienda FROM TIENDA";
         Connection conexion=null;
         PreparedStatement obtener=null;
         ResultSet rs=null;
@@ -61,10 +61,8 @@ public class daoTienda {
             rs=obtener.executeQuery(query);
             while(rs.next()){
                 String id=rs.getString("idTienda");
-                String nombre=rs.getString("nombreTienda");
-                tienda lista=new tienda(nombre,id);
+                tienda lista=new tienda(id);
                 lista.setCodigo(id);
-                lista.setNombre(nombre);
                 listado.add(lista);
             }
         } catch (SQLException ex) {

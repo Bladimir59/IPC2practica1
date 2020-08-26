@@ -34,6 +34,10 @@ public class tienda {
         this.nombre = nombre;
         this.codigo = codigo;
     }
+
+    public tienda(String codigo) {
+        this.codigo = codigo;
+    }
     
 
     public String getNombre() {

@@ -15,6 +15,11 @@ public class tiempo {
         this.tienda2 = tienda2;
     }
 
+    public tiempo(int tiempo) {
+        this.tiempo = tiempo;
+    }
+    
+
     public int getTiempo() {
         return tiempo;
     }

@@ -18,7 +18,24 @@ public class pedidos {
     private double total;
     private double anticipo;
     private Date fecha;
+    private Date fechaEntrega;
+    private boolean enTienda;
 //usar para registrar un nuevo pedido
+
+    public pedidos(String codigoPedido, String tienda1, String tienda2, String cliente, String articulo, int cantidad, double total, double anticipo, Date fecha, Date fechaEntrega, boolean enTienda) {
+        this.codigoPedido = codigoPedido;
+        this.tienda1 = tienda1;
+        this.tienda2 = tienda2;
+        this.cliente = cliente;
+        this.articulo = articulo;
+        this.cantidad = cantidad;
+        this.total = total;
+        this.anticipo = anticipo;
+        this.fecha = fecha;
+        this.fechaEntrega = fechaEntrega;
+        this.enTienda = enTienda;
+    }
+    
 
 //pedido para carga de archivo
 
@@ -32,6 +49,22 @@ public class pedidos {
         this.total = total;
         this.anticipo = anticipo;
         this.fecha = fecha;
+    }
+
+    public Date getFechaEntrega() {
+        return fechaEntrega;
+    }
+
+    public void setFechaEntrega(Date fechaEntrega) {
+        this.fechaEntrega = fechaEntrega;
+    }
+
+    public boolean isEnTienda() {
+        return enTienda;
+    }
+
+    public void setEnTienda(boolean enTienda) {
+        this.enTienda = enTienda;
     }
     
 

@@ -1,0 +1,215 @@
+CREATE SCHEMA IF NOT EXISTS `practica1` DEFAULT CHARACTER SET utf8 ;
+USE `practica1` ;
+
+
+CREATE TABLE IF NOT EXISTS `practica1`.`TIENDA` (
+  `idTienda` VARCHAR(10) NOT NULL,
+  `nombreTienda` VARCHAR(30) NOT NULL,
+  `direccionTienda` VARCHAR(45) NOT NULL,
+  `telefonoTienda1` VARCHAR(10) NOT NULL,
+  `telefonoTienda2` VARCHAR(45) NULL,
+  `correoTienda` VARCHAR(45) NULL,
+  `horario` VARCHAR(45) NULL,
+  PRIMARY KEY (`idTienda`),
+  UNIQUE INDEX `idTienda_UNIQUE` (`idTienda` ASC))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `practica1`.`USUARIO` (
+  `idUsuario` VARCHAR(15) NOT NULL,
+  `nombreUsuario` VARCHAR(45) NOT NULL,
+  `telefonoUsuario` VARCHAR(15) NOT NULL,
+  `DPIUsuario` VARCHAR(15) NOT NULL,
+  `NITUsuario` VARCHAR(10) NULL,
+  `correoUsuario` VARCHAR(20) NULL,
+  `direccionUsuario` VARCHAR(45) NULL,
+  PRIMARY KEY (`idUsuario`),
+  UNIQUE INDEX `idUsuario_UNIQUE` (`idUsuario` ASC))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `practica1`.`CLIENTE` (
+  `NIT` VARCHAR(10) NOT NULL,
+  `nombreCliente` VARCHAR(45) NOT NULL,
+  `telefonoCliente` VARCHAR(15) NOT NULL,
+  `DPI` VARCHAR(15) NULL,
+  `correoCliente` VARCHAR(45) NULL,
+  `direccionCliente` VARCHAR(45) NULL,
+  `creditoCliente` DOUBLE NOT NULL,
+  PRIMARY KEY (`NIT`),
+  UNIQUE INDEX `NIT_UNIQUE` (`NIT` ASC))
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `practica1`.`origen` (
+  `TIENDA_idTienda` VARCHAR(10) NOT NULL,
+  INDEX `fk_OrigenDestino_TIENDA1_idx` (`TIENDA_idTienda` ASC),
+  PRIMARY KEY (`TIENDA_idTienda`),
+  CONSTRAINT `fk_OrigenDestino_TIENDA1`
+    FOREIGN KEY (`TIENDA_idTienda`)
+    REFERENCES `practica1`.`TIENDA` (`idTienda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `practica1`.`destino` (
+  `TIENDA_idTienda` VARCHAR(10) NOT NULL,
+  INDEX `fk_TIENDA_has_PEDIDOS_TIENDA1_idx` (`TIENDA_idTienda` ASC),
+  PRIMARY KEY (`TIENDA_idTienda`),
+  CONSTRAINT `fk_TIENDA_has_PEDIDOS_TIENDA1`
+    FOREIGN KEY (`TIENDA_idTienda`)
+    REFERENCES `practica1`.`TIENDA` (`idTienda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `practica1`.`TIEMPO` (
+  `tiempo` INT NOT NULL,
+  `idtiempo` INT NOT NULL AUTO_INCREMENT,
+  `origen_TIENDA_idTienda` VARCHAR(10) NOT NULL,
+  `destino_TIENDA_idTienda` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`idtiempo`),
+  UNIQUE INDEX `idtiempo_UNIQUE` (`idtiempo` ASC),
+  INDEX `fk_tiempo_origen1_idx` (`origen_TIENDA_idTienda` ASC),
+  INDEX `fk_tiempo_destino1_idx` (`destino_TIENDA_idTienda` ASC),
+  CONSTRAINT `fk_tiempo_origen1`
+    FOREIGN KEY (`origen_TIENDA_idTienda`)
+    REFERENCES `practica1`.`origen` (`TIENDA_idTienda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_tiempo_destino1`
+    FOREIGN KEY (`destino_TIENDA_idTienda`)
+    REFERENCES `practica1`.`destino` (`TIENDA_idTienda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `practica1`.`PEDIDOS` (
+  `codigoPedido` VARCHAR(10) NOT NULL,
+  `fecha` DATE NOT NULL,
+  `anticipo` VARCHAR(45) NOT NULL,
+  `origen_TIENDA_idTienda` VARCHAR(10) NOT NULL,
+  `destino_TIENDA_idTienda` VARCHAR(10) NOT NULL,
+  `total` DOUBLE NOT NULL,
+  `CLIENTE_NIT` VARCHAR(10) NOT NULL,
+  `TIEMPO_idtiempo` INT NULL,
+  `fechaEntrega` DATE NULL,
+  `EnTienda` TINYINT(1) NULL,
+  UNIQUE INDEX `codigoPedido_UNIQUE` (`codigoPedido` ASC),
+  PRIMARY KEY (`codigoPedido`),
+  INDEX `fk_PEDIDOS_origen1_idx` (`origen_TIENDA_idTienda` ASC),
+  INDEX `fk_PEDIDOS_destino1_idx` (`destino_TIENDA_idTienda` ASC),
+  INDEX `fk_PEDIDOS_CLIENTE1_idx` (`CLIENTE_NIT` ASC),
+  INDEX `fk_PEDIDOS_TIEMPO1_idx` (`TIEMPO_idtiempo` ASC),
+  CONSTRAINT `fk_PEDIDOS_origen1`
+    FOREIGN KEY (`origen_TIENDA_idTienda`)
+    REFERENCES `practica1`.`origen` (`TIENDA_idTienda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_PEDIDOS_destino1`
+    FOREIGN KEY (`destino_TIENDA_idTienda`)
+    REFERENCES `practica1`.`destino` (`TIENDA_idTienda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_PEDIDOS_CLIENTE1`
+    FOREIGN KEY (`CLIENTE_NIT`)
+    REFERENCES `practica1`.`CLIENTE` (`NIT`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_PEDIDOS_TIEMPO1`
+    FOREIGN KEY (`TIEMPO_idtiempo`)
+    REFERENCES `practica1`.`TIEMPO` (`idtiempo`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `practica1`.`PRODUCTO` (
+  `idPRODUCTO` VARCHAR(10) NOT NULL,
+  `nombreProducto` VARCHAR(45) NOT NULL,
+  `fabrica` VARCHAR(45) NOT NULL,
+  `precio` FLOAT NOT NULL,
+  `Descripcion` VARCHAR(255) NULL,
+  `Garantilla` INT NULL,
+  PRIMARY KEY (`idPRODUCTO`))
+ENGINE = InnoDB;
+
+
+CREATE TABLE IF NOT EXISTS `practica1`.`VENTA` (
+  `idVENTAS` INT NOT NULL AUTO_INCREMENT,
+  `TOTAL` DOUBLE NOT NULL,
+  `TIENDA_idTienda` VARCHAR(10) NOT NULL,
+  `CLIENTE_NIT` VARCHAR(10) NOT NULL,
+  `FechaVENTA` DATE NOT NULL,
+  PRIMARY KEY (`idVENTAS`),
+  INDEX `fk_VENTA_TIENDA1_idx` (`TIENDA_idTienda` ASC),
+  INDEX `fk_VENTA_CLIENTE1_idx` (`CLIENTE_NIT` ASC),
+  CONSTRAINT `fk_VENTA_TIENDA1`
+    FOREIGN KEY (`TIENDA_idTienda`)
+    REFERENCES `practica1`.`TIENDA` (`idTienda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_VENTA_CLIENTE1`
+    FOREIGN KEY (`CLIENTE_NIT`)
+    REFERENCES `practica1`.`CLIENTE` (`NIT`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `practica1`.`TIENDASdePRODUCTOS` (
+  `TIENDA_idTienda` VARCHAR(10) NOT NULL,
+  `PRODUCTO_idPRODUCTO` VARCHAR(10) NOT NULL,
+  `cantidadProducto` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  INDEX `fk_TIENDA_has_PRODUCTO_PRODUCTO1_idx` (`PRODUCTO_idPRODUCTO` ASC),
+  INDEX `fk_TIENDA_has_PRODUCTO_TIENDA_idx` (`TIENDA_idTienda` ASC),
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_TIENDA_has_PRODUCTO_TIENDA`
+    FOREIGN KEY (`TIENDA_idTienda`)
+    REFERENCES `practica1`.`TIENDA` (`idTienda`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_TIENDA_has_PRODUCTO_PRODUCTO1`
+    FOREIGN KEY (`PRODUCTO_idPRODUCTO`)
+    REFERENCES `practica1`.`PRODUCTO` (`idPRODUCTO`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `practica1`.`PEDIDOSdePRODUCTO` (
+  `PEDIDOS_codigoPedido` VARCHAR(10) NOT NULL,
+  `PRODUCTO_idPRODUCTO` VARCHAR(10) NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `cantidadProducto` INT NOT NULL,
+  INDEX `fk_PEDIDOS_has_PRODUCTO_PRODUCTO1_idx` (`PRODUCTO_idPRODUCTO` ASC),
+  INDEX `fk_PEDIDOS_has_PRODUCTO_PEDIDOS1_idx` (`PEDIDOS_codigoPedido` ASC),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC),
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_PEDIDOS_has_PRODUCTO_PEDIDOS1`
+    FOREIGN KEY (`PEDIDOS_codigoPedido`)
+    REFERENCES `practica1`.`PEDIDOS` (`codigoPedido`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_PEDIDOS_has_PRODUCTO_PRODUCTO1`
+    FOREIGN KEY (`PRODUCTO_idPRODUCTO`)
+    REFERENCES `practica1`.`PRODUCTO` (`idPRODUCTO`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+CREATE TABLE IF NOT EXISTS `practica1`.`detalleVentas` (
+  `PRODUCTO_idPRODUCTO` VARCHAR(10) NOT NULL,
+  `VENTA_idVENTAS` INT NOT NULL,
+  `iddetalle` INT NOT NULL AUTO_INCREMENT,
+  `cantidadProducto` INT NOT NULL,
+  `subTotal` DOUBLE NOT NULL,
+  INDEX `fk_PRODUCTO_has_VENTA_VENTA1_idx` (`VENTA_idVENTAS` ASC),
+  INDEX `fk_PRODUCTO_has_VENTA_PRODUCTO1_idx` (`PRODUCTO_idPRODUCTO` ASC),
+  PRIMARY KEY (`iddetalle`),
+  CONSTRAINT `fk_PRODUCTO_has_VENTA_PRODUCTO1`
+    FOREIGN KEY (`PRODUCTO_idPRODUCTO`)
+    REFERENCES `practica1`.`PRODUCTO` (`idPRODUCTO`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_PRODUCTO_has_VENTA_VENTA1`
+    FOREIGN KEY (`VENTA_idVENTAS`)
+    REFERENCES `practica1`.`VENTA` (`idVENTAS`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
